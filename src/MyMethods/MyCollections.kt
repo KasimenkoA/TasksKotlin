@@ -1,6 +1,7 @@
 package MyMethods
 
 import School.Bag
+import School.PencilBox
 
 class MyCollections {
 
@@ -100,6 +101,8 @@ class MyCollections {
         val colors = getColors()
         nn = (Math.random()*colors.size).toInt()
         bag.color = colors.get(nn)
+
+        bag.pencilBox = PencilBox()
 
         return bag
     }
