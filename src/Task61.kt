@@ -9,4 +9,5 @@ fun main() {
     {
         println(scanner.nextLine())
     }
+    scanner.close()
 }
