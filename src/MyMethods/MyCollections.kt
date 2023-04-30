@@ -5,27 +5,24 @@ import School.PencilBox
 
 class MyCollections {
 
-    fun getMasRandomInteger(size:Int,bound:Int):ArrayList<Int>
-    {
+    fun getMasRandomInteger(size: Int, bound: Int): ArrayList<Int> {
         var list = arrayListOf<Int>()
 
-        for (i in 0 until size) list.add((Math.random()*bound).toInt())
+        for (i in 0 until size) list.add((Math.random() * bound).toInt())
 
         return list
     }
 
-    fun getRandomFromTo(i_from:Int,i_to:Int):Int
-    {
-        if (i_to<i_from) return i_from
+    fun getRandomFromTo(i_from: Int, i_to: Int): Int {
+        if (i_to < i_from) return i_from
 
         val bound = i_to - i_from + 1
-        var rr = i_from + (Math.random()*bound).toInt()
+        var rr = i_from + (Math.random() * bound).toInt()
 
         return rr
     }
 
-    fun getColors():ArrayList<String>
-    {
+    fun getColors(): ArrayList<String> {
         var list = arrayListOf<String>()
 
         list.add("red")
@@ -42,8 +39,7 @@ class MyCollections {
         return list
     }
 
-    fun getFirms():ArrayList<String>
-    {
+    fun getFirms(): ArrayList<String> {
         var list = arrayListOf<String>()
 
         list.add("Berlingo")
@@ -60,8 +56,7 @@ class MyCollections {
         return list
     }
 
-    fun getPupilsNames():ArrayList<String>
-    {
+    fun getPupilsNames(): ArrayList<String> {
         var list = arrayListOf<String>()
 
         list.add("Katherine")
@@ -85,21 +80,20 @@ class MyCollections {
         list.add("Jason")
         list.add("Norman")
         list.add("Thomas")
-        
+
         return list
     }
 
-    fun getRandomBag():Bag
-    {
+    fun getRandomBag(): Bag {
         val bag = Bag()
         var nn = 0
 
         val firms = getFirms()
-        nn = (Math.random()*firms.size).toInt()
+        nn = (Math.random() * firms.size).toInt()
         bag.firm = firms.get(nn)
 
         val colors = getColors()
-        nn = (Math.random()*colors.size).toInt()
+        nn = (Math.random() * colors.size).toInt()
         bag.color = colors.get(nn)
 
         bag.pencilBox = PencilBox()
@@ -107,16 +101,27 @@ class MyCollections {
         return bag
     }
 
-    fun getPencilBoxItems():ArrayList<PencilBox>
-    {
+    fun getPencilBoxItems(): ArrayList<PencilBox> {
         val pencilBoxes = ArrayList<PencilBox>()
 
-        for (i in 0 until 20)
-            {
-                pencilBoxes.add(PencilBox())
-            }
+        for (i in 0 until 20) {
+            pencilBoxes.add(PencilBox())
+        }
 
         return pencilBoxes
+    }
+
+    fun getRandomPencilBoxItems(): ArrayList<PencilBox> {
+        val pencilBoxes = getPencilBoxItems()
+        val pencilBoxesNew: ArrayList<PencilBox> = arrayListOf<PencilBox>()
+
+        var nn = 0
+        for (i in 0 until 5) {
+            nn = (Math.random() * pencilBoxes.size).toInt()
+            pencilBoxesNew.add(pencilBoxes[nn])
+        }
+
+        return pencilBoxesNew
     }
 
 }
