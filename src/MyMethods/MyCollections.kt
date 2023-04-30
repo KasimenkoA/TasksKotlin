@@ -158,4 +158,17 @@ class MyCollections {
         return items
     }
 
+    fun getRandomTextbooks(): ArrayList<String> {
+        val items = getTextbooks()
+        val itemsNew: ArrayList<String> = arrayListOf<String>()
+
+        var nn = 0
+        for (i in 0 until 5) {
+            nn = (Math.random() * items.size).toInt()
+            itemsNew.add(items[nn])
+        }
+
+        return itemsNew
+    }
+
 }
