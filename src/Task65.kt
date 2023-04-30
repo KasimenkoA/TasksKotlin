@@ -1,7 +1,7 @@
 import MyMethods.MyCollections
 
 fun main() {
-    val pencilBoxes = MyCollections().getPencilBoxItems()
+    val items = MyCollections().getPencilBoxItems()
 
-    for (pb in pencilBoxes) pb.getInfo()
+    for (ss in items) println(ss)
 }

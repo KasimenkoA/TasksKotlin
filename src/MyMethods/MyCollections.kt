@@ -101,27 +101,44 @@ class MyCollections {
         return bag
     }
 
-    fun getPencilBoxItems(): ArrayList<PencilBox> {
-        val pencilBoxes = ArrayList<PencilBox>()
+    fun getPencilBoxItems(): ArrayList<String> {
+        val items = ArrayList<String>()
 
-        for (i in 0 until 20) {
-            pencilBoxes.add(PencilBox())
-        }
+        items.add("blue pen")
+        items.add("pencil")
+        items.add("ruler")
+        items.add("compass")
+        items.add("elastic band")
+        items.add("sharpener")
+        items.add("scissors")
+        items.add("protractor")
+        items.add("marker")
+        items.add("eraser")
+        items.add("glue pencil")
+        items.add("brush")
+        items.add("paints")
+        items.add("calculator")
+        items.add("markers")
+        items.add("glue")
+        items.add("red pen")
+        items.add("black pen")
+        items.add("paper clips")
+        items.add("bookmarks")
 
-        return pencilBoxes
+        return items
     }
 
-    fun getRandomPencilBoxItems(): ArrayList<PencilBox> {
-        val pencilBoxes = getPencilBoxItems()
-        val pencilBoxesNew: ArrayList<PencilBox> = arrayListOf<PencilBox>()
+    fun getRandomPencilBoxItems(): ArrayList<String> {
+        val items = getPencilBoxItems()
+        val itemsNew: ArrayList<String> = arrayListOf<String>()
 
         var nn = 0
         for (i in 0 until 5) {
-            nn = (Math.random() * pencilBoxes.size).toInt()
-            pencilBoxesNew.add(pencilBoxes[nn])
+            nn = (Math.random() * items.size).toInt()
+            itemsNew.add(items[nn])
         }
 
-        return pencilBoxesNew
+        return itemsNew
     }
 
 }
