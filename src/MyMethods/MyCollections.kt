@@ -141,4 +141,21 @@ class MyCollections {
         return itemsNew
     }
 
+    fun getTextbooks(): ArrayList<String> {
+        val items = ArrayList<String>()
+
+        items.add("Russian language")
+        items.add("Mathematics")
+        items.add("Surrounding world")
+        items.add("Literary reading")
+        items.add("History")
+        items.add("Geography")
+        items.add("Biology")
+        items.add("Physics")
+        items.add("Computer science")
+        items.add("English")
+
+        return items
+    }
+
 }
