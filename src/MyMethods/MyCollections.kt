@@ -107,4 +107,16 @@ class MyCollections {
         return bag
     }
 
+    fun getPencilBoxItems():ArrayList<PencilBox>
+    {
+        val pencilBoxes = ArrayList<PencilBox>()
+
+        for (i in 0 until 20)
+            {
+                pencilBoxes.add(PencilBox())
+            }
+
+        return pencilBoxes
+    }
+
 }
