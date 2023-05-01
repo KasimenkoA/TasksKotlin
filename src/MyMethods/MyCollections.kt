@@ -97,6 +97,7 @@ class MyCollections {
         bag.color = colors.get(nn)
 
         bag.pencilBox = PencilBox()
+        bag.textbooks = getRandomTextbooks()
 
         return bag
     }
