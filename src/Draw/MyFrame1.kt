@@ -47,7 +47,7 @@ class MyPanel : JPanel() {
 }
 
 fun main() {
-    val myFrame = MyFrame()
+    val myFrame = MyFrame2()
 
     val myPanel = MyPanel()
     myFrame.add(myPanel)
