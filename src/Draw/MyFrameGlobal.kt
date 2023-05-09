@@ -1,6 +1,8 @@
 package Draw
 
 import java.awt.BorderLayout
+import java.awt.Color
+import java.awt.Dimension
 import java.awt.GridLayout
 import javax.swing.JButton
 import javax.swing.JFrame
@@ -17,7 +19,11 @@ class MyFrameGlobal: JFrame()
         val panelButton = JPanel()
         panelButton.layout = GridLayout(2,4)
 
+        val panelDraw = PanelDraw()
+        panelDraw.preferredSize = Dimension(600, 400)
+
         val button1 = JButton("Button 1")
+        button1.addActionListener { panelDraw.drawMyOval() }
         panelButton.add(button1)
 
         val button2 = JButton("Button 2")
@@ -42,6 +48,7 @@ class MyFrameGlobal: JFrame()
         panelButton.add(button8)
 
         add(panelButton, BorderLayout.NORTH)
+        add(panelDraw, BorderLayout.SOUTH)
     }
 
 }
@@ -50,5 +57,17 @@ fun main() {
 
     val frame = MyFrameGlobal()
     frame.isVisible = true
+
+}
+
+class PanelDraw: JPanel()
+{
+    public fun drawMyOval()
+    {
+        val g = graphics
+        g.color = Color.blue
+        g.fillOval(200, 150, 90, 80)
+    }
+
 
 }
