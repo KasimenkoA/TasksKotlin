@@ -27,6 +27,7 @@ class MyFrameGlobal: JFrame()
         panelButton.add(button1)
 
         val button2 = JButton("Button 2")
+        button2.addActionListener { panelDraw.drawClear()}
         panelButton.add(button2)
 
         val button3 = JButton("Button 3")
@@ -67,6 +68,12 @@ class PanelDraw: JPanel()
         val g = graphics
         g.color = Color.blue
         g.fillOval(200, 150, 90, 80)
+    }
+
+    public fun drawClear()
+    {
+        removeAll()
+        repaint()
     }
 
 
