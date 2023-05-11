@@ -1,15 +1,17 @@
 package Draw
 
-import java.awt.BorderLayout
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.GridLayout
+import java.awt.*
 import javax.swing.JButton
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-class MyFrameGlobal: JFrame()
+class MyFrameGlobal(): JFrame()
 {
+    companion object{
+        var curX:Int = 0
+        var curY:Int = 0
+    }
+
     init {
         setSize(600, 500)
         setLocationRelativeTo(null)
@@ -27,7 +29,8 @@ class MyFrameGlobal: JFrame()
         panelButton.add(button1)
 
         val button2 = JButton("Button 2")
-        button2.addActionListener { panelDraw.drawClear()}
+        //button2.addActionListener { panelDraw.drawClear()}
+        button2.addActionListener {panelDraw.moveOval()}
         panelButton.add(button2)
 
         val button3 = JButton("Button 3")
@@ -74,6 +77,31 @@ class PanelDraw: JPanel()
     {
         removeAll()
         repaint()
+    }
+
+    public fun moveOval()
+    {
+        val g = graphics
+        g.color = Color.green
+
+        MyFrameGlobal.curX = 0
+        MyFrameGlobal.curY = 0
+
+        while (true) {
+            g.clearRect(0, 0, width, height)
+            g.fillOval(MyFrameGlobal.curX, MyFrameGlobal.curY, 90, 80)
+            try {
+                Thread.sleep(10)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+            MyFrameGlobal.curX++
+            MyFrameGlobal.curY++
+            if (MyFrameGlobal.curX >= width || MyFrameGlobal.curY >= height) {
+                break
+            }
+        }
+
     }
 
 
