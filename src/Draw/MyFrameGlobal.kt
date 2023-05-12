@@ -34,6 +34,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button2)
 
         val button3 = JButton("Button 3")
+        button3.addActionListener { panelDraw.rotateRectangle() }
         panelButton.add(button3)
 
         val button4 = JButton("Button 4")
@@ -90,6 +91,7 @@ class PanelDraw: JPanel()
         while (true) {
             g.clearRect(0, 0, width, height)
             g.fillOval(MyFrameGlobal.curX, MyFrameGlobal.curY, 90, 80)
+
             try {
                 Thread.sleep(10)
             } catch (e: InterruptedException) {
@@ -101,6 +103,38 @@ class PanelDraw: JPanel()
                 break
             }
         }
+    }
+
+    public fun rotateRectangle()
+    {
+        val g = graphics
+        val g2d = g as Graphics2D
+        g2d.color = Color.CYAN
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+
+
+        val rSize = 80
+
+        var angle = 0
+        val angleStep = 1
+        var count = 0
+
+        while (count < 3) {
+            g2d.clearRect(0, 0, width, height)
+            g2d.rotate(Math.toRadians(angleStep.toDouble()), (width / 2).toDouble(), (height / 2).toDouble())
+            g2d.fillRect(width / 2 - rSize / 2, height / 2 - rSize / 2, rSize, rSize)
+            try {
+                Thread.sleep(10)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+            angle += angleStep
+            if (angle > 360) {
+                angle = angleStep
+                count++
+            }
+        }
+        g2d.clearRect(0, 0, width, height)
 
     }
 
