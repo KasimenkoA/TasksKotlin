@@ -2,6 +2,7 @@ package MyMethods
 
 import School.Bag
 import School.PencilBox
+import java.awt.Color
 
 class MyCollections {
 
@@ -170,6 +171,16 @@ class MyCollections {
         }
 
         return itemsNew
+    }
+
+    companion object {
+        fun getRandomColor(): Color {
+            val red = (Math.random() * 256).toInt()
+            val green = (Math.random() * 256).toInt()
+            val blue = (Math.random() * 256).toInt()
+
+            return Color(red, green, blue)
+        }
     }
 
 }

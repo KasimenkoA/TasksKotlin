@@ -1,5 +1,6 @@
 package Draw
 
+import MyMethods.MyCollections
 import java.awt.*
 import javax.swing.JButton
 import javax.swing.JFrame
@@ -38,6 +39,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button3)
 
         val button4 = JButton("Button 4")
+        button4.addActionListener { panelDraw.changeColor() }
         panelButton.add(button4)
 
         val button5 = JButton("Button 5")
@@ -135,7 +137,11 @@ class PanelDraw: JPanel()
             }
         }
         g2d.clearRect(0, 0, width, height)
+    }
 
+    public fun changeColor()
+    {
+        background = MyCollections.getRandomColor()
     }
 
 
