@@ -141,7 +141,18 @@ class PanelDraw: JPanel()
 
     public fun changeColor()
     {
-        background = MyCollections.getRandomColor()
+        Thread {
+            var curColor = MyCollections.getRandomColor()
+            for (i in 0..99) {
+                background = curColor
+                try {
+                    Thread.sleep(100)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                curColor = MyCollections.getNextRandomColor(curColor!!)
+            }
+        }.start()
     }
 
 

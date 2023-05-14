@@ -3,6 +3,8 @@ package MyMethods
 import School.Bag
 import School.PencilBox
 import java.awt.Color
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyCollections {
 
@@ -181,6 +183,32 @@ class MyCollections {
 
             return Color(red, green, blue)
         }
+
+        fun getNextRandomColor(color: Color): Color {
+            var red = color.red
+            var green = color.green
+            var blue = color.blue
+            val random = Random()
+            val nn = random.nextInt(3)
+            val sign = random.nextInt(2)
+            val step = if (sign == 0) -50 else 50
+            if (nn == 0) {
+                red = red + step
+                if (red < 0) red = 75
+                if (red > 255) red = 180
+            } else if (nn == 1) {
+                green = green + step
+                if (green < 0) green = 75
+                if (green > 255) green = 180
+            } else if (nn == 2) {
+                blue = blue + step
+                if (blue < 0) blue = 75
+                if (blue > 255) blue = 180
+            }
+            return Color(red, green, blue)
+        }
+
     }
+
 
 }
