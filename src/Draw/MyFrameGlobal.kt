@@ -43,6 +43,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button4)
 
         val button5 = JButton("Button 5")
+        button5.addActionListener { panelDraw.drawArcCircle() }
         panelButton.add(button5)
 
         val button6 = JButton("Button 6")
@@ -153,6 +154,18 @@ class PanelDraw: JPanel()
                 curColor = MyCollections.getNextRandomColor(curColor!!)
             }
         }.start()
+    }
+
+    fun drawArcCircle() {
+        val g = graphics
+        g.color = Color.red
+        g.fillArc(50, 50, 300, 300, 0, 90)
+        g.color = Color.green
+        g.fillArc(50, 50, 300, 300, 90, 90)
+        g.color = Color.blue
+        g.fillArc(50, 50, 300, 300, 180, 90)
+        g.color = Color.yellow
+        g.fillArc(50, 50, 300, 300, 270, 90)
     }
 
 
