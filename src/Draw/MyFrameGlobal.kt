@@ -47,6 +47,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button5)
 
         val button6 = JButton("Button 6")
+        button6.addActionListener { panelDraw.CircleToPoint() }
         panelButton.add(button6)
 
         val button7 = JButton("Button 7")
@@ -166,6 +167,24 @@ class PanelDraw: JPanel()
         g.fillArc(50, 50, 300, 300, 180, 90)
         g.color = Color.yellow
         g.fillArc(50, 50, 300, 300, 270, 90)
+    }
+
+    fun CircleToPoint() {
+        Thread {
+            var size = 100
+            val g = graphics
+            g.color = Color.green
+            for (i in 0..99) {
+                g.fillOval(100, 100, size, size)
+                try {
+                    Thread.sleep(100)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                g.clearRect(100, 100, 100, 100)
+                size--
+            }
+        }.start()
     }
 
 
