@@ -51,6 +51,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button6)
 
         val button7 = JButton("Button 7")
+        button7.addActionListener { panelDraw.squareMoving() }
         panelButton.add(button7)
 
         val button8 = JButton("Button 8")
@@ -185,6 +186,48 @@ class PanelDraw: JPanel()
                 size--
             }
         }.start()
+    }
+
+    fun squareMoving() {
+        val g = graphics
+        g.color = Color.magenta
+        var xx = 100
+        var yy = 100
+        var dx = 0
+        var dy = 0
+        var direction = 0
+        while (direction < 4) {
+            when (direction) {
+                0 -> {
+                    dx = 1
+                    dy = 0
+                }
+                1 -> {
+                    dx = 0
+                    dy = 1
+                }
+                2 -> {
+                    dx = -1
+                    dy = 0
+                }
+                3 -> {
+                    dx = 0
+                    dy = -1
+                }
+            }
+            for (i in 0..99) {
+                g.fillRect(xx, yy, 50, 50)
+                try {
+                    Thread.sleep(50)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                g.clearRect(xx, yy, 50, 50)
+                xx += dx
+                yy += dy
+            }
+            direction++
+        }
     }
 
 
