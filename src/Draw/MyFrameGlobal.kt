@@ -3,6 +3,7 @@ package Draw
 import MyMethods.MyCollections
 import java.awt.*
 import javax.swing.JButton
+import javax.swing.JColorChooser
 import javax.swing.JFrame
 import javax.swing.JPanel
 
@@ -55,6 +56,7 @@ class MyFrameGlobal(): JFrame()
         panelButton.add(button7)
 
         val button8 = JButton("Button 8")
+        button8.addActionListener { panelDraw.setBackgroundColor() }
         panelButton.add(button8)
 
         add(panelButton, BorderLayout.NORTH)
@@ -228,6 +230,12 @@ class PanelDraw: JPanel()
             }
             direction++
         }
+    }
+
+    fun setBackgroundColor()
+    {
+        val curColor = JColorChooser.showDialog(this,"Choose the color",Color.BLACK)
+        if (curColor != null) background = curColor
     }
 
 
