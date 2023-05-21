@@ -1,8 +1,8 @@
 package Draw
 
-import java.awt.BorderLayout
-import java.awt.Dimension
-import java.awt.GridLayout
+import java.awt.*
+import java.awt.geom.Ellipse2D
+import java.util.*
 import javax.swing.JButton
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -29,9 +29,9 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.layout = GridLayout(2, 4)
 
         panelDraw = PanelDraw2()
-        panelDraw.preferredSize = Dimension(600, 400)
 
         button1 = JButton("Button 1")
+        button1.addActionListener { panelDraw.drawCircle() }
         panelButton.add(button1)
 
         button2 = JButton("Button 2")
@@ -60,8 +60,35 @@ class MyFrameGlobal2 : JFrame() {
     }
 }
 
+class MyCanvas : Canvas() {
+    val shapes: ArrayList<Shape>
+    override fun paint(g: Graphics) {
+        val g2d = g as Graphics2D
+        for (shape in shapes) {
+            g2d.fill(shape)
+        }
+    }
+
+    init {
+        shapes = ArrayList()
+    }
+}
+
 private class PanelDraw2: JPanel()
 {
+    private val canvas: MyCanvas
+    init {
+        preferredSize = Dimension(600, 400)
+        canvas = MyCanvas()
+        canvas.preferredSize = Dimension(600, 400)
+        add(canvas, BorderLayout.CENTER)
+    }
+
+    fun drawCircle() {
+        val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, 60.0, 60.0)
+        canvas.shapes.add(ellipse2D)
+        canvas.repaint()
+    }
 
 }
 
