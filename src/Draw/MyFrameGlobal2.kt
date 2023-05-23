@@ -3,9 +3,7 @@ package Draw
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import java.util.*
-import javax.swing.JButton
-import javax.swing.JFrame
-import javax.swing.JPanel
+import javax.swing.*
 
 class MyFrameGlobal2 : JFrame() {
     private var panelDraw: PanelDraw2
@@ -28,13 +26,22 @@ class MyFrameGlobal2 : JFrame() {
         val panelButton = JPanel()
         panelButton.layout = GridLayout(2, 4)
 
-        panelDraw = PanelDraw2()
+        val panelEdit = JPanel()
+        panelEdit.preferredSize = Dimension(600, 200)
+        val label = JLabel("Width:")
+        panelEdit.add(label)
+        val textField = JTextField("10")
+        textField.columns = 5
+        panelEdit.add(textField)
+
+        panelDraw = PanelDraw2(textField)
 
         button1 = JButton("Button 1")
         button1.addActionListener { panelDraw.drawCircle() }
         panelButton.add(button1)
 
         button2 = JButton("Button 2")
+        button2.addActionListener { panelDraw.setEditSize() }
         panelButton.add(button2)
 
         button3 = JButton("Button 3")
@@ -56,6 +63,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button8)
 
         add(panelButton, BorderLayout.NORTH)
+        add(panelEdit, BorderLayout.CENTER)
         add(panelDraw, BorderLayout.SOUTH)
     }
 }
@@ -74,19 +82,33 @@ class MyCanvas : Canvas() {
     }
 }
 
-private class PanelDraw2: JPanel()
+private class PanelDraw2(private var textField: JTextField) : JPanel()
 {
     private val canvas: MyCanvas
     init {
-        preferredSize = Dimension(600, 400)
+        preferredSize = Dimension(600, 300)
         canvas = MyCanvas()
-        canvas.preferredSize = Dimension(600, 400)
+        canvas.preferredSize = Dimension(600, 300)
         add(canvas, BorderLayout.CENTER)
+        this.textField = textField
     }
 
     fun drawCircle() {
         val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, 60.0, 60.0)
         canvas.shapes.add(ellipse2D)
+        canvas.repaint()
+    }
+
+    fun setEditSize() {
+        val size = textField.text.toInt()
+        for (shape in canvas.shapes) {
+            if (shape is Ellipse2D) {
+                val ellipse = shape
+                val newX = ellipse.x - (size - ellipse.width) / 2 // вычисляем новое положение X
+                val newY = ellipse.y - (size - ellipse.height) / 2 // вычисляем новое положение Y
+                ellipse.setFrame(newX, newY, size.toDouble(), size.toDouble())
+            }
+        }
         canvas.repaint()
     }
 
