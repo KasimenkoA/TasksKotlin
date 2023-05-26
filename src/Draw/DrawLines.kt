@@ -1,8 +1,10 @@
 package Draw
 
+import Draw.DrawLines.MyLine
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.event.*
+import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 
@@ -17,16 +19,27 @@ class DrawLines : JFrame() {
     var endX = 0
     var endY = 0
 
+    var myLines: ArrayList<MyLine>
+
+    class MyLine(var startX: Int, var startY: Int, var endX: Int, var endY: Int)
+
     init {
         title = "Draw lines"
         setSize(600, 500)
         setLocationRelativeTo(null)
         defaultCloseOperation = EXIT_ON_CLOSE
+
+        myLines = ArrayList()
+
         val panel: JPanel = object : JPanel() {
             override fun paintComponent(g: Graphics) {
                 super.paintComponent(g)
                 g.color = Color.blue
                 g.drawLine(startX, startY, endX, endY)
+
+                for (myLine in myLines) {
+                    g.drawLine(myLine.startX, myLine.startY, myLine.endX, myLine.endY)
+                }
             }
         }
         val mouseListener: MouseListener = object : MouseAdapter() {
@@ -40,6 +53,8 @@ class DrawLines : JFrame() {
             override fun mouseReleased(e: MouseEvent) {
                 endX = e.x
                 endY = e.y
+
+                myLines.add(MyLine(startX, startY, endX, endY))
                 panel.repaint()
             }
         }
