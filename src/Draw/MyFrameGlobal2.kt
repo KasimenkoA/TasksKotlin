@@ -2,6 +2,8 @@ package Draw
 
 import MyMethods.MyCollections
 import java.awt.*
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
 import java.awt.geom.Ellipse2D
 import java.util.*
 import javax.swing.*
@@ -34,6 +36,15 @@ class MyFrameGlobal2 : JFrame() {
         val textField = JTextField("90")
         textField.columns = 5
         panelEdit.add(textField)
+
+        val labelColor = JLabel("Color:")
+        val buttonColor = JButton("Select color")
+        buttonColor.addActionListener {
+            val curColor = JColorChooser.showDialog(null, "Select color", Color.white)
+            buttonColor.background = curColor
+        }
+        panelEdit.add(labelColor)
+        panelEdit.add(buttonColor)
 
         panelDraw = PanelDraw2(textField)
 
