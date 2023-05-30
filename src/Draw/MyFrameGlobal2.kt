@@ -2,8 +2,6 @@ package Draw
 
 import MyMethods.MyCollections
 import java.awt.*
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.awt.geom.Ellipse2D
 import java.util.*
 import javax.swing.*
@@ -46,7 +44,7 @@ class MyFrameGlobal2 : JFrame() {
         panelEdit.add(labelColor)
         panelEdit.add(buttonColor)
 
-        panelDraw = PanelDraw2(textField)
+        panelDraw = PanelDraw2(textField,buttonColor)
 
         button1 = JButton("Button 1")
         button1.addActionListener { panelDraw.drawCircle() }
@@ -61,6 +59,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button3)
 
         button4 = JButton("Button 4")
+        button4.addActionListener{ panelDraw.canvasRepaint() }
         panelButton.add(button4)
 
         button5 = JButton("Button 5")
@@ -81,11 +80,27 @@ class MyFrameGlobal2 : JFrame() {
     }
 }
 
-class MyCanvas : Canvas() {
+class MyCanvas(var buttonColor: JButton) : Canvas() {
     val shapes: ArrayList<Shape> = ArrayList()
+
+    init {
+        buttonColor = buttonColor
+    }
+
+
 
     override fun paint(g: Graphics) {
         val g2d = g as Graphics2D
+
+        val color1 = Color.white
+        val color2 = buttonColor.background
+        val gradientPaint = GradientPaint(
+            0f, 0f, color1,
+            width.toFloat(), height.toFloat(), color2
+        )
+        g2d.paint = gradientPaint
+        g2d.fillRect(0, 0, width, height)
+
         g2d.color = Color.CYAN
 
         for (shape in shapes) {
@@ -94,12 +109,12 @@ class MyCanvas : Canvas() {
     }
 }
 
-private class PanelDraw2(private var textField: JTextField) : JPanel()
+private class PanelDraw2(private var textField: JTextField, buttonColor: JButton ) : JPanel()
 {
     private val canvas: MyCanvas
     init {
         preferredSize = Dimension(600, 390)
-        canvas = MyCanvas()
+        canvas = MyCanvas(buttonColor)
         canvas.preferredSize = Dimension(600, 390)
         add(canvas, BorderLayout.CENTER)
     }
@@ -128,6 +143,10 @@ private class PanelDraw2(private var textField: JTextField) : JPanel()
         val size: Int = MyCollections().getRandomFromTo(10, 250)
         val ellipse2D: Ellipse2D = Ellipse2D.Double(x.toDouble(), y.toDouble(), size.toDouble(), size.toDouble())
         canvas.shapes.add(ellipse2D)
+        canvas.repaint()
+    }
+
+    fun canvasRepaint() {
         canvas.repaint()
     }
 
