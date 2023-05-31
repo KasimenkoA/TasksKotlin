@@ -3,6 +3,7 @@ package Draw
 import MyMethods.MyCollections
 import java.awt.*
 import java.awt.geom.Ellipse2D
+import java.awt.geom.Rectangle2D
 import java.util.*
 import javax.swing.*
 
@@ -63,6 +64,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button4)
 
         button5 = JButton("Button 5")
+        button5.addActionListener{ panelDraw.squareBlink()}
         panelButton.add(button5)
 
         button6 = JButton("Button 6")
@@ -148,6 +150,33 @@ private class PanelDraw2(private var textField: JTextField, buttonColor: JButton
 
     fun canvasRepaint() {
         canvas.repaint()
+    }
+
+    fun squareBlink() {
+        val thread = Thread {
+            var ii = 100
+            val centerX = 150
+            val centerY = 150
+            var curX: Int
+            var curY: Int
+            var direction = -1
+            while (true) {
+                curX = centerX - ii / 2
+                curY = centerY - ii / 2
+                canvas.shapes.add(Rectangle2D.Double(curX.toDouble(), curY.toDouble(), ii.toDouble(), ii.toDouble()))
+                canvas.repaint()
+                try {
+                    Thread.sleep(10)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                canvas.shapes.clear()
+                ii += direction
+                if (ii <= 1) direction = 1
+                if (ii >= 100) direction = -1
+            }
+        }
+        thread.start()
     }
 
 }
