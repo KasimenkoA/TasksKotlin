@@ -68,6 +68,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button5)
 
         button6 = JButton("Button 6")
+        button6.addActionListener{ panelDraw.squareToCircle()}
         panelButton.add(button6)
 
         button7 = JButton("Button 7")
@@ -96,12 +97,12 @@ class MyCanvas(var buttonColor: JButton) : Canvas() {
 
         val color1 = Color.white
         val color2 = buttonColor.background
-        val gradientPaint = GradientPaint(
-            0f, 0f, color1,
-            width.toFloat(), height.toFloat(), color2
-        )
-        g2d.paint = gradientPaint
-        g2d.fillRect(0, 0, width, height)
+
+        if (color1 != color2) {
+            val gradientPaint = GradientPaint(0f, 0f, color1, width.toFloat(), height.toFloat(), color2)
+            g2d.paint = gradientPaint
+            g2d.fillRect(0, 0, width, height)
+        }
 
         g2d.color = Color.CYAN
 
@@ -174,6 +175,50 @@ private class PanelDraw2(private var textField: JTextField, buttonColor: JButton
                 ii += direction
                 if (ii <= 1) direction = 1
                 if (ii >= 100) direction = -1
+            }
+        }
+        thread.start()
+    }
+
+    fun squareToCircle() {
+        val thread = Thread {
+            var ii = 100
+            val centerX = 150
+            val centerY = 150
+            var curX: Int
+            var curY: Int
+            var direction = -1
+            var isSquare = true
+            while (true) {
+                curX = centerX - ii / 2
+                curY = centerY - ii / 2
+                if (isSquare) {
+                    canvas.shapes.add(
+                        Rectangle2D.Double(
+                            curX.toDouble(),
+                            curY.toDouble(),
+                            ii.toDouble(),
+                            ii.toDouble()
+                        )
+                    )
+                } else {
+                    canvas.shapes.add(Ellipse2D.Double(curX.toDouble(), curY.toDouble(), ii.toDouble(), ii.toDouble()))
+                }
+                canvas.repaint()
+                try {
+                    Thread.sleep(10)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                canvas.shapes.clear()
+                ii += direction
+                if (ii <= 1) {
+                    direction = 1
+                    isSquare = !isSquare
+                }
+                if (ii >= 100) {
+                    direction = -1
+                }
             }
         }
         thread.start()
