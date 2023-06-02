@@ -72,6 +72,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button6)
 
         button7 = JButton("Button 7")
+        button7.addActionListener{ panelDraw.circleToOval() }
         panelButton.add(button7)
 
         button8 = JButton("Button 8")
@@ -223,6 +224,39 @@ private class PanelDraw2(private var textField: JTextField, buttonColor: JButton
         }
         thread.start()
     }
+
+    fun circleToOval() {
+        val thread = Thread {
+            var startW = 100
+            var startH = 100
+            for (i in 100..199) {
+                startW = i
+                val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, startW.toDouble(), startH.toDouble())
+                canvas.shapes.add(ellipse2D)
+                canvas.repaint()
+                try {
+                    Thread.sleep(20)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                canvas.shapes.clear()
+            }
+            for (i in 100..199) {
+                startH = i
+                val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, startW.toDouble(), startH.toDouble())
+                canvas.shapes.add(ellipse2D)
+                canvas.repaint()
+                try {
+                    Thread.sleep(20)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                canvas.shapes.clear()
+            }
+        }
+        thread.start()
+    }
+
 
 }
 
