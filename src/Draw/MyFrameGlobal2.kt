@@ -76,6 +76,7 @@ class MyFrameGlobal2 : JFrame() {
         panelButton.add(button7)
 
         button8 = JButton("Button 8")
+        button8.addActionListener{ panelDraw.circleRandomMove() }
         panelButton.add(button8)
 
         add(panelButton, BorderLayout.NORTH)
@@ -252,6 +253,34 @@ private class PanelDraw2(private var textField: JTextField, buttonColor: JButton
                     e.printStackTrace()
                 }
                 canvas.shapes.clear()
+            }
+        }
+        thread.start()
+    }
+
+    fun circleRandomMove() {
+        val thread = Thread {
+            val startX = 200
+            val startY = 200
+            val size = 100
+            val stepCount = 100
+            val stepX = (Math.random() * width - startX) / stepCount
+            val stepY = (Math.random() * height - startY) / stepCount
+            var positionX = startX.toDouble()
+            var positionY = startY.toDouble()
+            canvas.shapes.clear()
+            for (i in 0 until stepCount) {
+                val ellipse2D: Ellipse2D = Ellipse2D.Double(positionX, positionY, size.toDouble(), size.toDouble())
+                canvas.shapes.add(ellipse2D)
+                canvas.repaint()
+                try {
+                    Thread.sleep(20)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                canvas.shapes.clear()
+                positionX += stepX
+                positionY += stepY
             }
         }
         thread.start()
