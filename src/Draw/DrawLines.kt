@@ -8,7 +8,7 @@ import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-fun main(args: Array<String>) {
+fun main() {
     val frame = DrawLines()
     frame.isVisible = true
 }

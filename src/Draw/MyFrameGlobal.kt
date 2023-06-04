@@ -155,7 +155,7 @@ class PanelDraw: JPanel()
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-                curColor = MyCollections.getNextRandomColor(curColor!!)
+                curColor = MyCollections.getNextRandomColor(curColor)
             }
         }.start()
     }
