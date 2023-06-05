@@ -1,22 +1,22 @@
 package Draw
 
-import java.awt.BorderLayout
-import java.awt.Dimension
-import java.awt.GridLayout
+import java.awt.*
+import java.awt.geom.Ellipse2D
+import java.util.*
 import javax.swing.JButton
 import javax.swing.JFrame
 import javax.swing.JPanel
 
 class MyFrameGlobal3 : JFrame() {
-    var panelDraw: PanelDraw3
-    var button1: JButton
-    var button2: JButton
-    var button3: JButton
-    var button4: JButton
-    var button5: JButton
-    var button6: JButton
-    var button7: JButton
-    var button8: JButton
+    private var panelDraw: PanelDraw3
+    private var button1: JButton
+    private var button2: JButton
+    private var button3: JButton
+    private var button4: JButton
+    private var button5: JButton
+    private var button6: JButton
+    private var button7: JButton
+    private var button8: JButton
 
     init {
         title = "My global frame 3"
@@ -31,7 +31,9 @@ class MyFrameGlobal3 : JFrame() {
         panelDraw.preferredSize = Dimension(600, 400)
 
         button1 = JButton("Button 1")
+        button1.addActionListener { panelDraw.drawCircle() }
         panelButton.add(button1)
+
         button2 = JButton("Button 2")
         panelButton.add(button2)
         button3 = JButton("Button 3")
@@ -51,11 +53,31 @@ class MyFrameGlobal3 : JFrame() {
     }
 }
 
+class MyCircle(
+    val circle: Ellipse2D,
+    val color: Color,
+    private val stepX: Double,
+    private val stepY: Double
+)
 
-class PanelDraw3 : JPanel() {
+class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPanel()
+{
+    override fun paintComponent(g: Graphics) {
+        super.paintComponent(g)
+        val g2d = g as Graphics2D
+        for (myCircle in myCircles) {
+            g2d.color = myCircle.color
+            g2d.fill(myCircle.circle)
+        }
+    }
+
+    fun drawCircle() {
+        val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, 80.0, 80.0)
+        myCircles.add(MyCircle(ellipse2D, Color.BLUE, 0.0, 0.0))
+        repaint()
+    }
 
 }
-
 
 fun main() {
     val frame = MyFrameGlobal3()
