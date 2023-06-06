@@ -1,5 +1,6 @@
 package Draw
 
+import MyMethods.MyCollections
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import java.util.*
@@ -35,7 +36,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button1)
 
         button2 = JButton("Button 2")
+        button2.addActionListener { panelDraw.drawCircles() }
         panelButton.add(button2)
+
         button3 = JButton("Button 3")
         panelButton.add(button3)
         button4 = JButton("Button 4")
@@ -74,6 +77,26 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
     fun drawCircle() {
         val ellipse2D: Ellipse2D = Ellipse2D.Double(100.0, 100.0, 80.0, 80.0)
         myCircles.add(MyCircle(ellipse2D, Color.BLUE, 0.0, 0.0))
+        repaint()
+    }
+
+    fun drawCircles() {
+        var x: Double
+        var y: Double
+        var size: Double
+        var stepX: Double
+        var stepY: Double
+        var color: Color
+        for (i in 0..4) {
+            x = Math.random() * 400 + 50
+            y = Math.random() * 300 + 50
+            size = Math.random() * 40 + 10
+            stepX = Math.random() * 10
+            stepY = Math.random() * 10
+            color = MyCollections.getRandomColor()
+            val ellipse2D: Ellipse2D = Ellipse2D.Double(x, y, size, size)
+            myCircles.add(MyCircle(ellipse2D, color, stepX, stepY))
+        }
         repaint()
     }
 
