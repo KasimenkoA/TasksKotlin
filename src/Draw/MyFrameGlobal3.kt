@@ -4,12 +4,14 @@ import MyMethods.MyCollections
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import javax.swing.JButton
 import javax.swing.JFrame
 import javax.swing.JPanel
 
 class MyFrameGlobal3 : JFrame() {
-    private var panelDraw: PanelDraw3
+    public var panelDraw: PanelDraw3
     private var button1: JButton
     private var button2: JButton
     private var button3: JButton
@@ -53,14 +55,25 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button8)
         add(panelButton, BorderLayout.NORTH)
         add(panelDraw, BorderLayout.SOUTH)
+
+        val service = Executors.newSingleThreadScheduledExecutor()
+        service.scheduleWithFixedDelay(PanelRepaint(panelDraw), 100, 50, TimeUnit.MILLISECONDS)
     }
+
+    class PanelRepaint(val panelDraw: PanelDraw3) : Runnable {
+        override fun run() {
+            panelDraw.repaint()
+        }
+    }
+
+
 }
 
 class MyCircle(
     val circle: Ellipse2D,
     val color: Color,
-    private val stepX: Double,
-    private val stepY: Double
+    var stepX: Double,
+    var stepY: Double
 )
 
 class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPanel()
@@ -68,9 +81,25 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
         val g2d = g as Graphics2D
+        var curX: Double
+        var curY: Double
+        var curSize: Double
+
         for (myCircle in myCircles) {
             g2d.color = myCircle.color
             g2d.fill(myCircle.circle)
+            curX = myCircle.circle.x + myCircle.stepX
+            if (curX >= width || curX <= 0) {
+                curX = myCircle.circle.x
+                myCircle.stepX = -myCircle.stepX
+            }
+            curY = myCircle.circle.y + myCircle.stepY
+            if (curY >= height || curY <= 0) {
+                curY = myCircle.circle.y
+                myCircle.stepY = -myCircle.stepY
+            }
+            curSize = myCircle.circle.width
+            myCircle.circle.setFrame(curX, curY, curSize, curSize)
         }
     }
 
