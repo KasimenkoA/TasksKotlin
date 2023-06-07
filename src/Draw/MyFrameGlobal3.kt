@@ -11,7 +11,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 class MyFrameGlobal3 : JFrame() {
-    public var panelDraw: PanelDraw3
+    private var panelDraw: PanelDraw3
     private var button1: JButton
     private var button2: JButton
     private var button3: JButton
@@ -60,7 +60,7 @@ class MyFrameGlobal3 : JFrame() {
         service.scheduleWithFixedDelay(PanelRepaint(panelDraw), 100, 50, TimeUnit.MILLISECONDS)
     }
 
-    class PanelRepaint(val panelDraw: PanelDraw3) : Runnable {
+    class PanelRepaint(private val panelDraw: PanelDraw3) : Runnable {
         override fun run() {
             panelDraw.repaint()
         }
