@@ -7,6 +7,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import javax.swing.JButton
+import javax.swing.JColorChooser
 import javax.swing.JFrame
 import javax.swing.JPanel
 
@@ -42,7 +43,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button2)
 
         button3 = JButton("Button 3")
+        button3.addActionListener { panelDraw.changeColor() }
         panelButton.add(button3)
+
         button4 = JButton("Button 4")
         panelButton.add(button4)
         button5 = JButton("Button 5")
@@ -71,7 +74,7 @@ class MyFrameGlobal3 : JFrame() {
 
 class MyCircle(
     val circle: Ellipse2D,
-    val color: Color,
+    var color: Color,
     var stepX: Double,
     var stepY: Double
 )
@@ -127,6 +130,13 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
             myCircles.add(MyCircle(ellipse2D, color, stepX, stepY))
         }
         repaint()
+    }
+
+    fun changeColor() {
+        val color = JColorChooser.showDialog(null, "Select color", Color.white)
+        for (myCircle in myCircles) {
+            myCircle.color = color
+        }
     }
 
 }
