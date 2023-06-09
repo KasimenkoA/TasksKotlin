@@ -47,7 +47,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button3)
 
         button4 = JButton("Button 4")
+        button4.addActionListener { panelDraw.setRandomPuls()}
         panelButton.add(button4)
+
         button5 = JButton("Button 5")
         panelButton.add(button5)
         button6 = JButton("Button 6")
@@ -76,7 +78,9 @@ class MyCircle(
     val circle: Ellipse2D,
     var color: Color,
     var stepX: Double,
-    var stepY: Double
+    var stepY: Double,
+    var pulse: Double = 0.0,
+    var pulseCount: Int = 0
 )
 
 class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPanel()
@@ -102,6 +106,16 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
                 myCircle.stepY = -myCircle.stepY
             }
             curSize = myCircle.circle.width
+
+            curSize -= myCircle.pulse
+            if (curSize < 1) curSize = 1.0
+
+            myCircle.pulseCount = myCircle.pulseCount + 1
+            if (myCircle.pulseCount >= 10) {
+                myCircle.pulse = -myCircle.pulse
+                myCircle.pulseCount = 0
+            }
+
             myCircle.circle.setFrame(curX, curY, curSize, curSize)
         }
     }
@@ -136,6 +150,13 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
         val color = JColorChooser.showDialog(null, "Select color", Color.white)
         for (myCircle in myCircles) {
             myCircle.color = color
+        }
+    }
+
+    fun setRandomPuls() {
+        for (myCircle in myCircles) {
+            myCircle.pulse = Math.random() * 10
+            myCircle.pulseCount = 0
         }
     }
 
