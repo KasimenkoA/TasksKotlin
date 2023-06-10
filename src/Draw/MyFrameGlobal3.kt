@@ -47,11 +47,13 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button3)
 
         button4 = JButton("Button 4")
-        button4.addActionListener { panelDraw.setRandomPuls()}
+        button4.addActionListener { panelDraw.setRandomPuls() }
         panelButton.add(button4)
 
         button5 = JButton("Button 5")
+        button5.addActionListener { panelDraw.goAway() }
         panelButton.add(button5)
+
         button6 = JButton("Button 6")
         panelButton.add(button6)
         button7 = JButton("Button 7")
@@ -158,6 +160,21 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
             myCircle.pulse = Math.random() * 10
             myCircle.pulseCount = 0
         }
+    }
+
+    fun goAway() {
+        val centerX = (width / 2).toDouble()
+        val centerY = (height / 2).toDouble()
+        var moduleStepX = 0.0
+        var moduleStepY = 0.0
+        for (myCircle in myCircles) {
+            moduleStepX = Math.abs(myCircle.stepX)
+            moduleStepY = Math.abs(myCircle.stepY)
+            if (myCircle.circle.x > centerX) myCircle.stepX = moduleStepX else myCircle.stepX = -moduleStepX
+            if (myCircle.circle.y > centerY) myCircle.stepY = moduleStepY else myCircle.stepY = -moduleStepY
+        }
+        val ellipse2D: Ellipse2D = Ellipse2D.Double(centerX, centerY, 10.0, 10.0)
+        myCircles.add(MyCircle(ellipse2D, Color.BLACK, 0.0, 0.0))
     }
 
 }
