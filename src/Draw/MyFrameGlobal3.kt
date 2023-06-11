@@ -55,7 +55,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button5)
 
         button6 = JButton("Button 6")
+        button6.addActionListener { panelDraw.fromCenter() }
         panelButton.add(button6)
+
         button7 = JButton("Button 7")
         panelButton.add(button7)
         button8 = JButton("Button 8")
@@ -175,6 +177,19 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
         }
         val ellipse2D: Ellipse2D = Ellipse2D.Double(centerX, centerY, 10.0, 10.0)
         myCircles.add(MyCircle(ellipse2D, Color.BLACK, 0.0, 0.0))
+    }
+
+    fun fromCenter() {
+        var size: Double
+        val centerX = (width / 2).toDouble()
+        val height = (height - 100).toDouble()
+        var moduleStepY = 0.0
+        for (myCircle in myCircles) {
+            moduleStepY = Math.abs(myCircle.stepY)
+            size = myCircle.circle.width
+            myCircle.circle.setFrame(centerX, height, size, size)
+            myCircle.stepY = -moduleStepY
+        }
     }
 
 }
