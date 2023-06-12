@@ -3,13 +3,13 @@ package Draw
 import MyMethods.MyCollections
 import java.awt.*
 import java.awt.geom.Ellipse2D
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import javax.swing.JButton
-import javax.swing.JColorChooser
-import javax.swing.JFrame
-import javax.swing.JPanel
+import javax.imageio.ImageIO
+import javax.swing.*
+import javax.swing.filechooser.FileNameExtensionFilter
 
 class MyFrameGlobal3 : JFrame() {
     private var panelDraw: PanelDraw3
@@ -59,7 +59,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button6)
 
         button7 = JButton("Button 7")
+        button7.addActionListener { panelDraw.selectPicture()}
         panelButton.add(button7)
+
         button8 = JButton("Button 8")
         panelButton.add(button8)
         add(panelButton, BorderLayout.NORTH)
@@ -87,11 +89,16 @@ class MyCircle(
     var pulseCount: Int = 0
 )
 
-class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPanel()
+class PanelDraw3(private var myImages: ArrayList<Image> = ArrayList(), private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPanel()
 {
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
         val g2d = g as Graphics2D
+
+        for (myImage in myImages) {
+            g2d.drawImage(myImage, 0, 0, width, height, null)
+        }
+
         var curX: Double
         var curY: Double
         var curSize: Double
@@ -189,6 +196,21 @@ class PanelDraw3(private var myCircles: ArrayList<MyCircle> = ArrayList()) : JPa
             size = myCircle.circle.width
             myCircle.circle.setFrame(centerX, height, size, size)
             myCircle.stepY = -moduleStepY
+        }
+    }
+
+    fun selectPicture() {
+        val jFileChooser = JFileChooser()
+        val filter = FileNameExtensionFilter("jpg", "jpg")
+        jFileChooser.fileFilter = filter
+        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            val file = jFileChooser.selectedFile
+            try {
+                val image: Image = ImageIO.read(file)
+                myImages.add(image)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
 
