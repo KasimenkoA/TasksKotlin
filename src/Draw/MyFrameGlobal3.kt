@@ -3,7 +3,10 @@ package Draw
 import MyMethods.MyCollections
 import java.awt.*
 import java.awt.geom.Ellipse2D
+import java.awt.image.BufferedImage
+import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -63,7 +66,9 @@ class MyFrameGlobal3 : JFrame() {
         panelButton.add(button7)
 
         button8 = JButton("Button 8")
+        button8.addActionListener { panelDraw.savePanelAsImage() }
         panelButton.add(button8)
+
         add(panelButton, BorderLayout.NORTH)
         add(panelDraw, BorderLayout.SOUTH)
 
@@ -211,6 +216,18 @@ class PanelDraw3(private var myImages: ArrayList<Image> = ArrayList(), private v
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun savePanelAsImage() {
+        val fileName = "panelImage.jpg"
+        val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+        val g2 = image.createGraphics()
+        paint(g2)
+        try {
+            ImageIO.write(image, "jpg", File(fileName))
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
