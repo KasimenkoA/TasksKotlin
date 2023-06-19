@@ -6,10 +6,7 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionAdapter
 import java.awt.geom.Ellipse2D
 import java.util.*
-import javax.swing.JButton
-import javax.swing.JColorChooser
-import javax.swing.JFrame
-import javax.swing.JPanel
+import javax.swing.*
 
 class MyFrameMix : JFrame() {
     var panelDraw: PanelDrawMix
@@ -17,6 +14,8 @@ class MyFrameMix : JFrame() {
     var button2: JButton
     var tempShape: MyShape
     var curColor: Color
+    var checkBox1: JCheckBox = JCheckBox( "fill", false );
+
     var shapes = ArrayList<MyShape>()
     var startX = 0
     var startY = 0
@@ -45,6 +44,8 @@ class MyFrameMix : JFrame() {
         button2.addActionListener { panelDraw.selectColor() }
         panelButton.add(button2)
 
+        panelButton.add( checkBox1 );
+
         add(panelButton, BorderLayout.NORTH)
         add(panelDraw, BorderLayout.SOUTH)
 
@@ -54,7 +55,7 @@ class MyFrameMix : JFrame() {
         endY = 0
 
         curColor = Color.WHITE
-        tempShape = MyShape(curColor,getFigure())
+        tempShape = MyShape()
     }
 
     inner class MyMouseAdapter : MouseAdapter() {
@@ -92,21 +93,39 @@ class MyFrameMix : JFrame() {
     }
 
     private fun getMyShape(): MyShape {
-        return MyShape(curColor, getFigure())
+        return MyShape()
     }
 
-    class MyShape(var color: Color, var shape: Shape)
+    inner class MyShape {
+        var shape: Shape
+        var color: Color
+        var isFill: Boolean
+
+        init {
+            color = curColor
+            shape = getFigure()
+            isFill = checkBox1.isSelected()
+        }
+    }
 
     inner class PanelDrawMix : JPanel() {
         override fun paint(g: Graphics) {
             val g2 = g as Graphics2D
             if (tempShape != null) {
                 g2.color = tempShape.color
-                g2.draw(tempShape.shape)
+                if (tempShape.isFill) {
+                    g2.fill(tempShape.shape)
+                } else {
+                    g2.draw(tempShape.shape)
+                }
             }
             for (shape in shapes) {
                 g2.color = shape.color
-                g2.draw(shape.shape)
+                if (shape.isFill) {
+                    g2.fill(shape.shape)
+                } else {
+                    g2.draw(shape.shape)
+                }
             }
         }
 
