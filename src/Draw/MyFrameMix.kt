@@ -15,6 +15,7 @@ class MyFrameMix : JFrame() {
     var tempShape: MyShape
     var curColor: Color
     var checkBox1: JCheckBox = JCheckBox( "fill", false );
+    var jTextField: JTextField = JTextField()
 
     var shapes = ArrayList<MyShape>()
     var startX = 0
@@ -45,6 +46,8 @@ class MyFrameMix : JFrame() {
         panelButton.add(button2)
 
         panelButton.add( checkBox1 );
+
+        panelButton.add(jTextField)
 
         add(panelButton, BorderLayout.NORTH)
         add(panelDraw, BorderLayout.SOUTH)
@@ -111,6 +114,15 @@ class MyFrameMix : JFrame() {
     inner class PanelDrawMix : JPanel() {
         override fun paint(g: Graphics) {
             val g2 = g as Graphics2D
+
+            val text = jTextField.text
+            if (text.matches("\\d+".toRegex())) {
+                val lineWidth = text.toInt()
+                if (lineWidth > 0) {
+                    g2.stroke = BasicStroke(lineWidth.toFloat())
+                }
+            }
+
             if (tempShape != null) {
                 g2.color = tempShape.color
                 if (tempShape.isFill) {
