@@ -103,11 +103,16 @@ class MyFrameMix : JFrame() {
         var shape: Shape
         var color: Color
         var isFill: Boolean
+        var lineWidth = 0
 
         init {
             color = curColor
             shape = getFigure()
             isFill = checkBox1.isSelected()
+
+            lineWidth = 1
+            val text = jTextField.text
+            if (text.matches("\\d+".toRegex())) lineWidth = text.toInt()
         }
     }
 
@@ -115,16 +120,11 @@ class MyFrameMix : JFrame() {
         override fun paint(g: Graphics) {
             val g2 = g as Graphics2D
 
-            val text = jTextField.text
-            if (text.matches("\\d+".toRegex())) {
-                val lineWidth = text.toInt()
-                if (lineWidth > 0) {
-                    g2.stroke = BasicStroke(lineWidth.toFloat())
-                }
-            }
-
             if (tempShape != null) {
                 g2.color = tempShape.color
+                if (tempShape.lineWidth > 0) {
+                    g2.stroke = BasicStroke(tempShape.lineWidth.toFloat())
+                }
                 if (tempShape.isFill) {
                     g2.fill(tempShape.shape)
                 } else {
@@ -133,6 +133,9 @@ class MyFrameMix : JFrame() {
             }
             for (shape in shapes) {
                 g2.color = shape.color
+                if (shape.lineWidth > 0) {
+                    g2.stroke = BasicStroke(shape.lineWidth.toFloat())
+                }
                 if (shape.isFill) {
                     g2.fill(shape.shape)
                 } else {
