@@ -14,8 +14,9 @@ class MyFrameMix : JFrame() {
     var button2: JButton
     var tempShape: MyShape
     var curColor: Color
-    var checkBox1: JCheckBox = JCheckBox( "fill", false );
+    var checkBox1: JCheckBox = JCheckBox( "fill", false )
     var jTextField: JTextField = JTextField()
+    var jComboBox: JComboBox<String> = JComboBox()
 
     var shapes = ArrayList<MyShape>()
     var startX = 0
@@ -30,7 +31,7 @@ class MyFrameMix : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
 
         val panelButton = JPanel()
-        panelButton.layout = GridLayout(1, 4)
+        panelButton.layout = GridLayout(2, 4)
 
         panelDraw = PanelDrawMix()
         panelDraw.preferredSize = Dimension(600, 400)
@@ -45,9 +46,13 @@ class MyFrameMix : JFrame() {
         button2.addActionListener { panelDraw.selectColor() }
         panelButton.add(button2)
 
-        panelButton.add( checkBox1 );
+        panelButton.add( checkBox1 )
 
         panelButton.add(jTextField)
+
+        val masSS = arrayOf("line", "rectangle", "oval", "arc")
+        jComboBox = JComboBox(masSS)
+        panelButton.add(jComboBox)
 
         add(panelButton, BorderLayout.NORTH)
         add(panelDraw, BorderLayout.SOUTH)
