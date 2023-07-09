@@ -5,14 +5,14 @@ fun main() {
     println(myRectangle1.area)
 
     val myRectangle2 = MyRectangle()
-    myRectangle1.setWidth(1.13)
-    myRectangle1.setHeight(80.9)
-    println(myRectangle1.area)
+    myRectangle2.setWidth(1.13)
+    myRectangle2.setHeight(80.9)
+    println(myRectangle2.area)
 
     val myRectangle3 = MyRectangle()
-    myRectangle1.setWidth(15.0)
-    myRectangle1.setHeight(10.0)
-    println(myRectangle1.area)
+    myRectangle3.setWidth(15.0)
+    myRectangle3.setHeight(10.0)
+    println(myRectangle3.area)
 }
 
 internal class MyRectangle {
