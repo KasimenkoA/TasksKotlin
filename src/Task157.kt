@@ -8,6 +8,6 @@ fun main() {
     mas[5] = "Orange"
 
     for (ss in mas) {
-        println(ss)
+        println(ss?.uppercase())
     }
 }
