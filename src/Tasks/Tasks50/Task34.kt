@@ -1,3 +1,5 @@
+package Tasks.Tasks50
+
 fun main() {
     val animal1 = Animal("dog",3)
     val animal2 = Animal("cat",1)

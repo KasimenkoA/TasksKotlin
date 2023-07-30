@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val math1 = MathOperations(20, 8)
     println(math1.add())

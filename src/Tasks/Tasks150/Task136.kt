@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val cat = Cat("Barsic", 4)
 

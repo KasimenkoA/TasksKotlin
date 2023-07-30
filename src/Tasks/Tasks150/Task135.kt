@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val tank1 = Tank("T-34", 30, 4)
     val tank2 = Tank("Panther", 44, 5)

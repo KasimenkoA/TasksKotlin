@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val bankAccount = BankAccount("125", "Alexey", 1000)
     bankAccount.addMoney(23)

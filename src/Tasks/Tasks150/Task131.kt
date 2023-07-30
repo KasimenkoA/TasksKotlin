@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val dog1 = Dog("Bobic", "boxer", 7)
     val dog2 = Dog("Tarzan", "setter", 37)

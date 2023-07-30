@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val user1 = User("Vova", 10, "Beiker street, 7-1")
     val user2 = User("Oleg", 12, "Central, 5-13")

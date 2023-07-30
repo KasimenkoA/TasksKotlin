@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val petAnimal = PetAnimal("Cow")
     petAnimal.makeSound()

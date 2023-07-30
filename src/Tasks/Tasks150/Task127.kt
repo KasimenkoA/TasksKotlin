@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val apple = Fruit("apple", "red", 250)
     println("Fruit: " + apple.name + ", color: " + apple.color + ", weight: " + apple.weight)

@@ -1,3 +1,5 @@
+package Tasks.Tasks150
+
 fun main() {
     val myRectangle1 = MyRectangle()
     myRectangle1.setWidth(12.4)

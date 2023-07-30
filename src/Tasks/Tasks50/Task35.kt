@@ -1,3 +1,5 @@
+package Tasks.Tasks50
+
 fun main() {
     val fig1 = Figure("circle",10,"red")
     println("${fig1.name} ${fig1.color}")
