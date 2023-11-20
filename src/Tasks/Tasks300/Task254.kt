@@ -16,10 +16,38 @@ internal class Gamer254(val name: String) {
         }
 }
 
+fun getWinNumber(tt1: String, tt2: String): Int {
+    if (tt1 == "stone") {
+        if (tt2 == "scissors") return 1
+        if (tt2 == "paper") return 2
+    } else if (tt1 == "scissors") {
+        if (tt2 == "stone") return 2
+        if (tt2 == "paper") return 1
+    } else  // "paper"
+    {
+        if (tt2 == "stone") return 1
+        if (tt2 == "scissors") return 2
+    }
+    return 0 // tt1.equals( tt2 )
+}
+
 fun main() {
     val gamer1 = Gamer254("Tom")
     val gamer2 = Gamer254("Bob")
 
-    println("${gamer1.name}  - ${gamer1.thing}")
-    println("${gamer2.name}  - ${gamer2.thing}")
+    val tt1: String = gamer1.thing
+    val tt2: String = gamer2.thing
+
+    println("${gamer1.name}  - $tt1")
+    println("${gamer2.name}  - $tt2")
+
+    val winNumber: Int = getWinNumber(tt1, tt2)
+
+    if (winNumber == 1) {
+        println("Gamer ${gamer1.name} won!")
+    } else if (winNumber == 2) {
+        println("Gamer ${gamer2.name} won!")
+    } else {
+        println("Draw!")
+    }
 }
