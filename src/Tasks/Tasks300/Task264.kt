@@ -15,7 +15,6 @@ internal class Plane264(name: Int, speed: Int) {
 fun main() {
 
     val arrayList = ArrayList<Plane264>()
-    val nn: Int
     val random = Random()
 
     for (i in 1..10) {
