@@ -24,4 +24,27 @@ fun main() {
         list.add(Pearl(cc_str, ww))
     }
 
+    var ww_count = 0
+    var bb_count = 0
+    var ww_sum = 0.0
+    var bb_sum = 0.0
+
+    for (pearl in list) {
+        if (pearl.color == "white") {
+            ww_count++
+            ww_sum += pearl.weight
+        } else {
+            bb_count++
+            bb_sum += pearl.weight
+        }
+    }
+
+    val ww_avg = Math.round(ww_sum / ww_count)
+    val bb_avg = Math.round(bb_sum / ww_count)
+
+    println("White sum: $ww_sum")
+    println("Black sum: $bb_sum")
+    println("White avg: $ww_avg")
+    println("Black avg: $bb_avg")
+
 }
